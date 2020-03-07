@@ -1,7 +1,7 @@
 from . import pd, np, sns, plt
 
 
-def heatmap(x, figsize=(10,8), title="heatmap", mask=None, vmin=None, vmax=None, center=None, square=True, ax=None, cmap="Blues", annot=True):
+def heatmap(x, figsize=(10,8), title="heatmap", mask=None, vmin=None, vmax=None, center=None, square=True, ax=None, cmap="Blues", annot=True, xlabel="", ylabel="", **kwargs):
     """ Plots a heatmap
 
     Args:
@@ -29,12 +29,14 @@ def heatmap(x, figsize=(10,8), title="heatmap", mask=None, vmin=None, vmax=None,
         fig = ax.get_figure()
 
 
-    ax = sns.heatmap(x, mask=mask, vmin=vmin, vmax=vmax, square=square, ax=ax, annot=annot, center=center, cmap=cmap)
+    ax = sns.heatmap(x, mask=mask, vmin=vmin, vmax=vmax, square=square, ax=ax, annot=annot, center=center, cmap=cmap, **kwargs)
+    ax.set_xlabel(xlabel)
+    ax.set_ylabel(ylabel)
     plt.close()
     return fig, ax
 
 
-def correlation_heatmap(df, figsize=(10,6), title="Correlation heatmap", ax=None, side="both", diagonal=True, cmap="coolwarm"):
+def correlation_heatmap(df, figsize=(10,6), title="Correlation heatmap", ax=None, side="both", diagonal=True, cmap="coolwarm", annot=True):
     """ Plots a correlation heatmap of all the columns in a dataframe.
         You can optionally chose if you want to
         show just the upper, or lower side. You can also optionally not show
@@ -76,7 +78,7 @@ def correlation_heatmap(df, figsize=(10,6), title="Correlation heatmap", ax=None
             fig.suptitle(title)
         else:
             fig = ax.get_figure()
-        ax = sns.heatmap(corr, mask=mask, vmin=-1, vmax=1., square=True, ax=ax, annot=True, center=0, cmap=cmap)
+        ax = sns.heatmap(corr, mask=mask, vmin=-1, vmax=1., square=True, ax=ax, annot=annot, center=0, cmap=cmap)
         # fig.tight_layout(pad=1.10,  rect=[0, 0.03, 1, 0.95])
     plt.close()
     return fig, ax
